@@ -1,0 +1,1204 @@
+<div class="container">
+        <div class="header">
+            <h1>Statistical Analysis Decision Tree</h1>
+            <p>Find the right statistical test for your research</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="breadcrumb" id="breadcrumb"></div>
+
+        <!-- Question 1: Data Type -->
+        <div class="question-container active" id="q1">
+            <div class="question">
+                <h2>What type of data do you have?</h2>
+                <p>This fundamental distinction determines your entire analytical approach</p>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="navigate('q2-quantitative')">
+                    <div class="option-title">📊 Quantitative Data</div>
+                    <div class="option-description">Numbers, measurements, scores, ratings (e.g., age, test scores, survey ratings)</div>
+                </button>
+                <button class="option-button" onclick="navigate('q2-qualitative')">
+                    <div class="option-title">📝 Qualitative Data</div>
+                    <div class="option-description">Text, interviews, observations, open-ended responses</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 2A: Quantitative Scale -->
+        <div class="question-container" id="q2-quantitative">
+            <div class="question">
+                <h2>What's your measurement scale?</h2>
+                <p>Different scales require different statistical approaches</p>
+            </div>
+            <div class="info-box">
+                <h4>💡 Likert Scale Guidance:</h4>
+                <p>3-point scales (e.g., Agree/Neutral/Disagree) → Treat as ordinal<br>
+                4+ point scales (e.g., 1-5 rating) → Can treat as continuous if normally distributed</p>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="navigate('q3-categorical')">
+                    <div class="option-title">🏷️ Categorical</div>
+                    <div class="option-description">Distinct categories (e.g., gender, department, yes/no)</div>
+                </button>
+                <button class="option-button" onclick="navigate('q3-ordinal')">
+                    <div class="option-title">📈 Ordinal</div>
+                    <div class="option-description">Ranked order (e.g., 1st/2nd/3rd, satisfaction levels, 3-point Likert)</div>
+                </button>
+                <button class="option-button" onclick="navigate('q3-continuous')">
+                    <div class="option-title">📏 Continuous</div>
+                    <div class="option-description">Precise measurements (e.g., height, temperature, test scores, 4+ point Likert)</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 2B: Qualitative Analysis -->
+        <div class="question-container" id="q2-qualitative">
+            <div class="question">
+                <h2>How do you want to analyze your qualitative data?</h2>
+                <p>Choose your analytical approach</p>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('qualitative-exploration')">
+                    <div class="option-title">🔍 Explore Themes</div>
+                    <div class="option-description">Word clouds, thematic analysis, content analysis</div>
+                </button>
+                <button class="option-button" onclick="navigate('q2-quantitative')">
+                    <div class="option-title">🔄 Convert to Categories</div>
+                    <div class="option-description">Turn themes into categorical variables for quantitative analysis</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 3: Analysis Purpose -->
+        <div class="question-container" id="q3-categorical">
+            <div class="question">
+                <h2>What do you want to analyze?</h2>
+                <p>Your research question determines the statistical test</p>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="navigate('q4-categorical-groups')">
+                    <div class="option-title">👥 Compare Groups</div>
+                    <div class="option-description">Test if different groups have different category distributions</div>
+                </button>
+                <button class="option-button" onclick="navigate('q4-categorical-relationship')">
+                    <div class="option-title">🔗 Test Relationships</div>
+                    <div class="option-description">See if two categorical variables are related</div>
+                </button>
+                <button class="option-button" onclick="showResult('categorical-descriptive')">
+                    <div class="option-title">📋 Describe Only</div>
+                    <div class="option-description">Frequencies, percentages, cross-tabulations</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q3-ordinal">
+            <div class="question">
+                <h2>What's your analysis goal?</h2>
+                <p>Ordinal data requires non-parametric approaches</p>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="navigate('q4-ordinal-groups')">
+                    <div class="option-title">👥 Compare Groups</div>
+                    <div class="option-description">Compare rankings or ordinal responses between groups</div>
+                </button>
+                <button class="option-button" onclick="navigate('q4-ordinal-relationship')">
+                    <div class="option-title">🔗 Test Relationships</div>
+                    <div class="option-description">Correlation between ordinal variables</div>
+                </button>
+                <button class="option-button" onclick="showResult('ordinal-descriptive')">
+                    <div class="option-title">📊 Describe Only</div>
+                    <div class="option-description">Medians, percentiles, frequency distributions</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q3-continuous">
+            <div class="question">
+                <h2>What's your analysis goal?</h2>
+                <p>Continuous data offers the most analytical options</p>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="navigate('q4-continuous-groups')">
+                    <div class="option-title">👥 Compare Groups</div>
+                    <div class="option-description">Test if group means are significantly different</div>
+                </button>
+                <button class="option-button" onclick="navigate('q4-continuous-relationship')">
+                    <div class="option-title">🔗 Test Relationships</div>
+                    <div class="option-description">Correlation or regression analysis</div>
+                </button>
+                <button class="option-button" onclick="showResult('continuous-descriptive')">
+                    <div class="option-title">📊 Describe Only</div>
+                    <div class="option-description">Means, standard deviations, distributions</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Group Analysis Questions -->
+        <div class="question-container" id="q4-categorical-groups">
+            <div class="question">
+                <h2>How many groups are you comparing?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('chi-square-goodness')">
+                    <div class="option-title">1️⃣ One Group</div>
+                    <div class="option-description">Test if your sample matches expected proportions</div>
+                </button>
+                <button class="option-button" onclick="showResult('chi-square-independence')">
+                    <div class="option-title">2️⃣ Two or More Groups</div>
+                    <div class="option-description">Test if group membership affects category distribution</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q4-ordinal-groups">
+            <div class="question">
+                <h2>How many groups and what type?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="navigate('q5-ordinal-independent')">
+                    <div class="option-title">👥 Independent Groups</div>
+                    <div class="option-description">Different participants in each group</div>
+                </button>
+                <button class="option-button" onclick="navigate('q5-ordinal-repeated')">
+                    <div class="option-title">🔄 Repeated Measures</div>
+                    <div class="option-description">Same participants measured multiple times</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q4-continuous-groups">
+            <div class="question">
+                <h2>How many groups and what type?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="navigate('q5-continuous-independent')">
+                    <div class="option-title">👥 Independent Groups</div>
+                    <div class="option-description">Different participants in each group</div>
+                </button>
+                <button class="option-button" onclick="navigate('q5-continuous-repeated')">
+                    <div class="option-title">🔄 Repeated Measures</div>
+                    <div class="option-description">Same participants measured multiple times</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Final Group Questions -->
+        <div class="question-container" id="q5-ordinal-independent">
+            <div class="question">
+                <h2>How many independent groups?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('mann-whitney')">
+                    <div class="option-title">2️⃣ Two Groups</div>
+                    <div class="option-description">Compare ordinal responses between two independent groups</div>
+                </button>
+                <button class="option-button" onclick="showResult('kruskal-wallis')">
+                    <div class="option-title">3️⃣+ Three or More Groups</div>
+                    <div class="option-description">Compare ordinal responses across multiple groups</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q5-ordinal-repeated">
+            <div class="question">
+                <h2>How many time points or conditions?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('wilcoxon-signed-rank')">
+                    <div class="option-title">2️⃣ Two Time Points</div>
+                    <div class="option-description">Compare before/after or two related conditions</div>
+                </button>
+                <button class="option-button" onclick="showResult('friedman')">
+                    <div class="option-title">3️⃣+ Three or More Time Points</div>
+                    <div class="option-description">Compare across multiple time points or conditions</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q5-continuous-independent">
+            <div class="question">
+                <h2>How many independent groups?</h2>
+                <p>We'll check data assumptions to recommend parametric vs non-parametric tests</p>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('independent-t-test')">
+                    <div class="option-title">2️⃣ Two Groups</div>
+                    <div class="option-description">Compare means between two independent groups</div>
+                </button>
+                <button class="option-button" onclick="showResult('one-way-anova')">
+                    <div class="option-title">3️⃣+ Three or More Groups</div>
+                    <div class="option-description">Compare means across multiple groups</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q5-continuous-repeated">
+            <div class="question">
+                <h2>How many time points or conditions?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('paired-t-test')">
+                    <div class="option-title">2️⃣ Two Time Points</div>
+                    <div class="option-description">Compare means before/after or two related conditions</div>
+                </button>
+                <button class="option-button" onclick="showResult('repeated-measures-anova')">
+                    <div class="option-title">3️⃣+ Three or More Time Points</div>
+                    <div class="option-description">Compare means across multiple time points</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Relationship Questions -->
+        <div class="question-container" id="q4-categorical-relationship">
+            <div class="question">
+                <h2>What type of relationship?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('chi-square-independence')">
+                    <div class="option-title">🔗 Two Categorical Variables</div>
+                    <div class="option-description">Test if two categorical variables are independent</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q4-ordinal-relationship">
+            <div class="question">
+                <h2>What type of relationship?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('spearman-correlation')">
+                    <div class="option-title">📈 Correlation</div>
+                    <div class="option-description">Measure strength of monotonic relationship</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="question-container" id="q4-continuous-relationship">
+            <div class="question">
+                <h2>What type of relationship?</h2>
+            </div>
+            <div class="options">
+                <button class="option-button" onclick="showResult('pearson-correlation')">
+                    <div class="option-title">📊 Correlation</div>
+                    <div class="option-description">Measure linear relationship strength</div>
+                </button>
+                <button class="option-button" onclick="showResult('linear-regression')">
+                    <div class="option-title">📉 Regression</div>
+                    <div class="option-description">Predict one variable from another</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="result-container" id="result"></div>
+
+        <div class="navigation">
+            <button class="nav-button" onclick="goBack()" id="backButton">← Back</button>
+            <button class="nav-button" onclick="restart()">🔄 Start Over</button>
+        </div>
+    </div>
+let currentStep = 'q1';
+        let history = [];
+        let breadcrumbPath = [];
+
+        const results = {
+            'qualitative-exploration': {
+                title: '📝 Qualitative Analysis',
+                description: 'Explore themes and patterns in your text data',
+                details: {
+                    'Recommended Approaches': [
+                        'Word cloud analysis for common terms',
+                        'Thematic analysis for identifying patterns',
+                        'Content analysis for systematic categorization',
+                        'Use AI tools like ChatGPT for theme identification (only if data is not sensitive)'
+                    ],
+                    'Next Steps': [
+                        'Consider converting themes to categories for quantitative analysis',
+                        'Use qualitative analysis software like NVivo or Atlas.ti',
+                        'Ensure inter-rater reliability if multiple coders'
+                    ]
+                }
+            },
+            'categorical-descriptive': {
+                title: '📊 Categorical Descriptive Analysis',
+                description: 'Summarize your categorical data with frequencies and percentages',
+                details: {
+                    'Recommended Statistics': [
+                        'Frequency tables and percentages',
+                        'Cross-tabulations for multiple variables',
+                        'Bar charts and pie charts for visualization',
+                        'Mode (most frequent category)'
+                    ],
+                    'Tools': [
+                        'Excel pivot tables',
+                        'SPSS frequency analysis',
+                        'R: table() and prop.table() functions'
+                    ]
+                }
+            },
+            'ordinal-descriptive': {
+                title: '📈 Ordinal Descriptive Analysis',
+                description: 'Summarize your ranked/ordered data',
+                details: {
+                    'Recommended Statistics': [
+                        'Median (middle value)',
+                        'Percentiles and quartiles',
+                        'Frequency distributions',
+                        'Box plots for visualization'
+                    ],
+                    'Avoid': [
+                        'Mean (not appropriate for ordinal data)',
+                        'Standard deviation (use with caution)'
+                    ]
+                }
+            },
+            'continuous-descriptive': {
+                title: '📊 Continuous Descriptive Analysis',
+                description: 'Comprehensive summary of your numerical data',
+                details: {
+                    'Essential Statistics': [
+                        'Mean and standard deviation',
+                        'Median and interquartile range',
+                        'Minimum, maximum, and range',
+                        'Skewness and kurtosis'
+                    ],
+                    'Visualizations': [
+                        'Histograms to check distribution shape',
+                        'Box plots to identify outliers',
+                        'Q-Q plots to assess normality'
+                    ]
+                }
+            },
+            'chi-square-goodness': {
+                title: '🎯 Chi-Square Goodness of Fit',
+                description: 'Test if your sample matches expected proportions',
+                details: {
+                    'When to Use': [
+                        'One categorical variable',
+                        'Want to test against expected distribution',
+                        'Example: Are website visitors equally distributed across days?'
+                    ],
+                    'Assumptions': [
+                        'Expected frequency ≥ 5 in each category',
+                        'Independent observations',
+                        'Random sampling'
+                    ],
+                    'Alternative': [
+                        'Exact binomial test for small samples'
+                    ]
+                }
+            },
+            'chi-square-independence': {
+                title: '🔗 Chi-Square Test of Independence',
+                description: 'Test if two categorical variables are related',
+                details: {
+                    'When to Use': [
+                        'Two categorical variables',
+                        'Want to test if variables are independent',
+                        'Example: Is gender related to product preference?'
+                    ],
+                    'Assumptions': [
+                        'Expected frequency ≥ 5 in each cell',
+                        'Independent observations',
+                        'Random sampling'
+                    ],
+                    'Alternatives': [
+                        'Fisher\'s Exact Test for small samples',
+                        'Cramer\'s V for effect size'
+                    ]
+                }
+            },
+            'mann-whitney': {
+                title: '👥 Mann-Whitney U Test',
+                description: 'Compare ordinal data between two independent groups',
+                details: {
+                    'When to Use': [
+                        'Two independent groups',
+                        'Ordinal data or non-normal continuous data',
+                        'Example: Compare satisfaction ratings between departments'
+                    ],
+                    'Assumptions': [
+                        'Independent observations',
+                        'Ordinal or continuous data',
+                        'Similar distribution shapes'
+                    ],
+                    'Effect Size': [
+                        'Rank-biserial correlation',
+                        'Probability of superiority'
+                    ]
+                }
+            },
+            'kruskal-wallis': {
+                title: '🎯 Kruskal-Wallis Test',
+                description: 'Compare ordinal data across multiple independent groups',
+                details: {
+                    'When to Use': [
+                        'Three or more independent groups',
+                        'Ordinal data or non-normal continuous data',
+                        'Example: Compare rankings across multiple conditions'
+                    ],
+                    'Assumptions': [
+                        'Independent observations',
+                        'Ordinal or continuous data',
+                        'Similar distribution shapes'
+                    ],
+                    'Post-hoc Tests': [
+                        'Dunn\'s test for pairwise comparisons',
+                        'Adjust p-values for multiple comparisons'
+                    ]
+                }
+            },
+            'wilcoxon-signed-rank': {
+                title: '🔄 Wilcoxon Signed-Rank Test',
+                description: 'Compare paired ordinal data (before/after)',
+                details: {
+                    'When to Use': [
+                        'Two related measurements',
+                        'Ordinal data or non-normal continuous data',
+                        'Example: Before/after treatment satisfaction'
+                    ],
+                    'Assumptions': [
+                        'Paired observations',
+                        'Ordinal or continuous data',
+                        'Symmetric distribution of differences'
+                    ],
+                    'Effect Size': [
+                        'Rank-biserial correlation',
+                        'Wilcoxon r'
+                    ]
+                }
+            },
+            'friedman': {
+                title: '📊 Friedman Test',
+                description: 'Compare ordinal data across multiple time points',
+                details: {
+                    'When to Use': [
+                        'Three or more related measurements',
+                        'Ordinal data or non-normal continuous data',
+                        'Example: Compare satisfaction across multiple time points'
+                    ],
+                    'Assumptions': [
+                        'Related observations (same participants)',
+                        'Ordinal or continuous data',
+                        'Similar distribution shapes'
+                    ],
+                    'Post-hoc Tests': [
+                        'Wilcoxon signed-rank tests with Bonferroni correction',
+                        'Conover\'s test for pairwise comparisons'
+                    ]
+                }
+            },
+            'independent-t-test': {
+                title: '👥 Independent Samples t-Test',
+                description: 'Compare means between two independent groups',
+                details: {
+                    'When to Use': [
+                        'Two independent groups',
+                        'Continuous data',
+                        'Example: Compare test scores between two classes'
+                    ],
+                    'Assumptions': [
+                        'Normal distribution in both groups',
+                        'Independent observations',
+                        'Equal variances (use Welch\'s t-test if unequal)'
+                    ],
+                    'Check First': [
+                        'Shapiro-Wilk test for normality',
+                        'Levene\'s test for equal variances',
+                        'If assumptions violated, use Mann-Whitney U test'
+                    ],
+                    'Effect Size': [
+                        'Cohen\'s d',
+                        'Glass\'s delta'
+                    ]
+                }
+            },
+            'one-way-anova': {
+                title: '🎯 One-Way ANOVA',
+                description: 'Compare means across multiple independent groups',
+                details: {
+                    'When to Use': [
+                        'Three or more independent groups',
+                        'Continuous data',
+                        'Example: Compare performance across departments'
+                    ],
+                    'Assumptions': [
+                        'Normal distribution in all groups',
+                        'Independent observations',
+                        'Equal variances (homoscedasticity)'
+                    ],
+                    'Check First': [
+                        'Shapiro-Wilk test for normality',
+                        'Levene\'s test for equal variances',
+                        'If assumptions violated, use Kruskal-Wallis test'
+                    ],
+                    'Post-hoc Tests': [
+                        'Tukey\'s HSD for equal variances',
+                        'Games-Howell for unequal variances',
+                        'Bonferroni correction for multiple comparisons'
+                    ],
+                    'Effect Size': [
+                        'Eta-squared (η²)',
+                        'Omega-squared (ω²)'
+                    ]
+                }
+            },
+            'paired-t-test': {
+                title: '🔄 Paired Samples t-Test',
+                description: 'Compare means before/after or between related conditions',
+                details: {
+                    'When to Use': [
+                        'Two related measurements',
+                        'Continuous data',
+                        'Example: Before/after training scores'
+                    ],
+                    'Assumptions': [
+                        'Normal distribution of differences',
+                        'Paired observations',
+                        'Interval or ratio data'
+                    ],
+                    'Check First': [
+                        'Test normality of difference scores',
+                        'If assumption violated, use Wilcoxon signed-rank test'
+                    ],
+                    'Effect Size': [
+                        'Cohen\'s d (for paired samples)',
+                        'Correlation coefficient'
+                    ]
+                }
+            },
+            'repeated-measures-anova': {
+                title: '📊 Repeated Measures ANOVA',
+                description: 'Compare means across multiple time points or conditions',
+                details: {
+                    'When to Use': [
+                        'Three or more related measurements',
+                        'Continuous data',
+                        'Example: Compare scores across multiple time points'
+                    ],
+                    'Assumptions': [
+                        'Normal distribution',
+                        'Sphericity (equal variances of differences)',
+                        'No missing data'
+                    ],
+                    'Check First': [
+                        'Mauchly\'s test for sphericity',
+                        'If violated, use Greenhouse-Geisser correction',
+                        'If assumptions violated, use Friedman test'
+                    ],
+                    'Post-hoc Tests': [
+                        'Bonferroni correction for pairwise comparisons',
+                        'Polynomial contrasts for trends'
+                    ],
+                    'Effect Size': [
+                        'Partial eta-squared (ηp²)',
+                        'Generalized eta-squared'
+                    ]
+                }
+            },
+            'spearman-correlation': {
+                title: '📈 Spearman Rank Correlation',
+                description: 'Measure monotonic relationship between ordinal variables',
+                details: {
+                    'When to Use': [
+                        'Two ordinal variables',
+                        'Non-linear monotonic relationships',
+                        'Example: Rank correlation between job satisfaction and performance'
+                    ],
+                    'Assumptions': [
+                        'Ordinal or continuous data',
+                        'Monotonic relationship',
+                        'Independent observations'
+                    ],
+                    'Interpretation': [
+                        'ρ = 0: No monotonic relationship',
+                        'ρ = ±1: Perfect monotonic relationship',
+                        'Similar to Pearson but for ranks'
+                    ],
+                    'Advantages': [
+                        'Robust to outliers',
+                        'No normality assumption',
+                        'Detects non-linear monotonic relationships'
+                    ]
+                }
+            },
+            'pearson-correlation': {
+                title: '📊 Pearson Correlation',
+                description: 'Measure linear relationship between continuous variables',
+                details: {
+                    'When to Use': [
+                        'Two continuous variables',
+                        'Linear relationship',
+                        'Example: Correlation between study time and test scores'
+                    ],
+                    'Assumptions': [
+                        'Normal distribution of both variables',
+                        'Linear relationship',
+                        'Independent observations',
+                        'No extreme outliers'
+                    ],
+                    'Check First': [
+                        'Scatterplot to assess linearity',
+                        'Test for normality',
+                        'If assumptions violated, use Spearman correlation'
+                    ],
+                    'Interpretation': [
+                        'r = 0: No linear relationship',
+                        'r = ±1: Perfect linear relationship',
+                        '|r| > 0.7: Strong relationship'
+                    ],
+                    'Effect Size': [
+                        'r² = coefficient of determination',
+                        'Shows proportion of variance explained'
+                    ]
+                }
+            },
+            'linear-regression': {
+                title: '📉 Linear Regression',
+                description: 'Predict one variable from another',
+                details: {
+                    'When to Use': [
+                        'One continuous predictor, one continuous outcome',
+                        'Want to predict or explain relationships',
+                        'Example: Predict sales from advertising spend'
+                    ],
+                    'Assumptions': [
+                        'Linear relationship',
+                        'Independence of residuals',
+                        'Homoscedasticity (equal variance of residuals)',
+                        'Normal distribution of residuals'
+                    ],
+                    'Check First': [
+                        'Residual plots for assumptions',
+                        'Durbin-Watson test for independence',
+                        'Cook\'s distance for influential points'
+                    ],
+                    'Extensions': [
+                        'Multiple regression for multiple predictors',
+                        'Polynomial regression for non-linear relationships',
+                        'Logistic regression for binary outcomes'
+                    ],
+                    'Model Evaluation': [
+                        'R² (coefficient of determination)',
+                        'Adjusted R² (penalizes complexity)',
+                        'RMSE (root mean square error)'
+                    ]
+                }
+            }
+        };
+
+        function updateProgress() {
+            const totalSteps = 8; // Approximate total steps
+            const currentStepNumber = history.length + 1;
+            const progressPercent = (currentStepNumber / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = progressPercent + '%';
+        }
+
+        function updateBreadcrumb() {
+            const breadcrumb = document.getElementById('breadcrumb');
+            breadcrumb.innerHTML = '';
+            
+            breadcrumbPath.forEach((item, index) => {
+                const breadcrumbItem = document.createElement('div');
+                breadcrumbItem.className = 'breadcrumb-item';
+                if (index === breadcrumbPath.length - 1) {
+                    breadcrumbItem.classList.add('active');
+                }
+                breadcrumbItem.textContent = item;
+                breadcrumb.appendChild(breadcrumbItem);
+            });
+        }
+
+        function navigate(targetStep) {
+            history.push(currentStep);
+            
+            // Update breadcrumb path
+            const stepDescriptions = {
+                'q1': 'Data Type',
+                'q2-quantitative': 'Quantitative',
+                'q2-qualitative': 'Qualitative',
+                'q3-categorical': 'Categorical',
+                'q3-ordinal': 'Ordinal',
+                'q3-continuous': 'Continuous',
+                'q4-categorical-groups': 'Compare Groups',
+                'q4-ordinal-groups': 'Compare Groups',
+                'q4-continuous-groups': 'Compare Groups',
+                'q4-categorical-relationship': 'Relationships',
+                'q4-ordinal-relationship': 'Relationships',
+                'q4-continuous-relationship': 'Relationships',
+                'q5-ordinal-independent': 'Independent',
+                'q5-ordinal-repeated': 'Repeated',
+                'q5-continuous-independent': 'Independent',
+                'q5-continuous-repeated': 'Repeated'
+            };
+            
+            if (stepDescriptions[targetStep]) {
+                breadcrumbPath.push(stepDescriptions[targetStep]);
+            }
+            
+            // Hide current step
+            document.getElementById(currentStep).classList.remove('active');
+            
+            // Show target step
+            currentStep = targetStep;
+            const targetElement = document.getElementById(targetStep);
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.classList.add('active');
+                }, 100);
+            }
+            
+            updateProgress();
+            updateBreadcrumb();
+        }
+
+        function showResult(resultKey) {
+            history.push(currentStep);
+            
+            // Hide current step
+            document.getElementById(currentStep).classList.remove('active');
+            
+            // Show result
+            const resultContainer = document.getElementById('result');
+            const result = results[resultKey];
+            
+            let detailsHTML = '';
+            for (const [category, items] of Object.entries(result.details)) {
+                detailsHTML += `
+                    <div class="result-details">
+                        <h3>${category}:</h3>
+                        <ul>
+                            ${items.map(item => `<li>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            resultContainer.innerHTML = `
+                <div class="result-title">${result.title}</div>
+                <div class="result-description">${result.description}</div>
+                ${detailsHTML}
+                <div style="margin-top: 20px;">
+                    <button class="nav-button" onclick="restart()" style="margin-right: 10px;">🔄 Try Another Analysis</button>
+                </div>
+            `;
+            
+            resultContainer.classList.add('active');
+            
+            // Update breadcrumb
+            breadcrumbPath.push('Result');
+            updateBreadcrumb();
+            updateProgress();
+        }
+
+        function goBack() {
+            if (history.length > 0) {
+                // Hide current step or result
+                const currentElement = document.getElementById(currentStep) || document.getElementById('result');
+                if (currentElement) {
+                    currentElement.classList.remove('active');
+                }
+                
+                // Hide result if it's active
+                const resultContainer = document.getElementById('result');
+                if (resultContainer.classList.contains('active')) {
+                    resultContainer.classList.remove('active');
+                }
+                
+                // Go back to previous step
+                currentStep = history.pop();
+                breadcrumbPath.pop();
+                
+                setTimeout(() => {
+                    document.getElementById(currentStep).classList.add('active');
+                }, 100);
+                
+                updateProgress();
+                updateBreadcrumb();
+            }
+        }
+
+        function restart() {
+            // Hide all elements
+            document.querySelectorAll('.question-container, .result-container').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Reset to first question
+            currentStep = 'q1';
+            history = [];
+            breadcrumbPath = ['Start'];
+            
+            setTimeout(() => {
+                document.getElementById('q1').classList.add('active');
+            }, 100);
+            
+            updateProgress();
+            updateBreadcrumb();
+        }
+
+        function exportSummary(resultKey) {
+            const result = results[resultKey];
+            let summary = `Statistical Analysis Recommendation\n`;
+            summary += `=========================================\n\n`;
+            summary += `Recommended Test: ${result.title}\n`;
+            summary += `Description: ${result.description}\n\n`;
+            
+            for (const [category, items] of Object.entries(result.details)) {
+                summary += `${category}:\n`;
+                items.forEach(item => {
+                    summary += `• ${item}\n`;
+                });
+                summary += '\n';
+            }
+            
+            summary += `Generated by Statistical Decision Tree\n`;
+            summary += `Date: ${new Date().toLocaleDateString()}\n`;
+            
+            // Create download
+            const blob = new Blob([summary], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'statistical_analysis_recommendation.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            breadcrumbPath = ['Start'];
+            updateBreadcrumb();
+            updateProgress();
+        });
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 900px;
+            width: 90%;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .question-container {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .question-container.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .question {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .question p {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .option-button {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1.1em;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .option-button:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .option-button:hover::before {
+            left: 100%;
+        }
+
+        .option-button:active {
+            transform: translateY(0);
+        }
+
+        .option-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .option-description {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .result-container.active {
+            display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-title {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .result-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .result-details {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .result-details h3 {
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .result-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .result-details li {
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .result-details li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: bold;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-item {
+            background: #ecf0f1;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .breadcrumb-item.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .info-box {
+            background: #e8f4fd;
+            border: 1px solid #b3d9ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .info-box h4 {
+            color: #1e88e5;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .question h2 {
+                font-size: 1.5em;
+            }
+            
+            .options {
+                gap: 10px;
+            }
+            
+            .option-button {
+                padding: 15px;
+                font-size: 1em;
+            }
+        }
